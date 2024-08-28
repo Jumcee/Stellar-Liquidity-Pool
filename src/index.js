@@ -6,8 +6,8 @@ const StellarSdk = require('stellar-sdk');
 // Example usage
 (async function main() {
     // Use environment variables for security
-    const issuerKeypair = StellarSdk.Keypair.fromSecret(process.env.ISSUER_SECRET);
-    const userKeypair = StellarSdk.Keypair.fromSecret(process.env.USER_SECRET);
+    const issuerKeypair = StellarSdk.Keypair.fromSecret(process.env.PUBLIC_KEY);
+    const userKeypair = StellarSdk.Keypair.fromSecret(process.env.PRIVATE_KEY);
     
     // Replace with actual asset codes and issuer public key
     const asset1 = new StellarSdk.Asset('ASSET1', issuerKeypair.publicKey());
