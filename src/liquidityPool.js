@@ -7,6 +7,7 @@ const { Keypair, TransactionBuilder, Operation, Asset, LiquidityPoolId } = requi
  * @param {Asset} asset1 - The first asset for the liquidity pool.
  * @param {Asset} asset2 - The second asset for the liquidity pool.
  */
+
 async function createLiquidityPool(issuerKeypair, asset1, asset2) {
     try {
         const account = await server.loadAccount(issuerKeypair.publicKey());

@@ -2,17 +2,36 @@ require('dotenv').config();
 const { server, networkPassphrase } = require('./config');
 const { createLiquidityPool, depositIntoPool, withdrawFromPool, performPathPayment } = require('./liquidityPool');
 const StellarSdk = require('stellar-sdk');
+import { getLiquidityPoolId, Asset, LiquidityPoolFeeV18 } from 'stellar-sdk';
 
 // Example usage
 (async function main() {
-    // Use environment variables for security
-    const issuerKeypair = StellarSdk.Keypair.fromSecret(process.env.PUBLIC_KEY);
-    const userKeypair = StellarSdk.Keypair.fromSecret(process.env.PRIVATE_KEY);
+    // For the issuer (using public key)
+const issuerKeypair = StellarSdk.Keypair.fromPublicKey(process.env.PUBLIC_KEY);
+
+// For the user (using private/secret key)
+const userKeypair = StellarSdk.Keypair.fromSecret(process.env.PRIVATE_KEY);
     
     // Replace with actual asset codes and issuer public key
     const asset1 = new StellarSdk.Asset('ASSET1', issuerKeypair.publicKey());
     const asset2 = new StellarSdk.Asset('ASSET2', issuerKeypair.publicKey());
-    const poolId = StellarSdk.LiquidityPoolId.assetPair(asset1, asset2);
+    // const poolId = StellarSdk.LiquidityPoolId.assetPair(asset1, asset2);
+
+     // Create the Liquidity Pool ID
+    //  const poolId = StellarSdk.getLiquidityPoolId(
+    //     'constant_product',
+    //     {
+    //         assetA: asset1,
+    //         assetB: asset2,
+    //         fee: StellarSdk.LiquidityPoolFeeV18
+    //     }
+    // ).toString('hex');
+
+    const poolId = getLiquidityPoolId('constant_product', {
+        assetA: asset1,
+        assetB: asset2,
+        fee: LiquidityPoolFeeV18
+      });
 
     // Execute liquidity pool operations
     await createLiquidityPool(issuerKeypair, asset1, asset2);
