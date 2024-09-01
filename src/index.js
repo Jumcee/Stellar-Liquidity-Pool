@@ -2,7 +2,16 @@ require('dotenv').config();
 const { server, networkPassphrase } = require('./config');
 const { createLiquidityPool, depositIntoPool, withdrawFromPool, performPathPayment } = require('./liquidityPool');
 const StellarSdk = require('stellar-sdk');
-import { getLiquidityPoolId, Asset, LiquidityPoolFeeV18 } from 'stellar-sdk';
+const { getLiquidityPoolId, Asset, LiquidityPoolFeeV18 } = require('stellar-sdk');
+// import fetch from 'node-fetch';
+const { fetch } = require('node-fetch');
+
+// cargo install --locked soroban-cli@=21.0.0-rc.1
+// cargo install soroban-cli@=21.0.0-rc.1
+
+// soroban --version
+// soroban 21.0.0-rc.1 or later.
+
 
 // Example usage
 (async function main() {
